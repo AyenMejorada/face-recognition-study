@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Anaconda project metadata
+anaconda_projects/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Model weights / large downloads (DeepFace caches these in ~/.deepface)
+*.h5
+*.pb
