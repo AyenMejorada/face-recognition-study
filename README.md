@@ -31,6 +31,11 @@ pip install -r requirements.txt
 
 ## Usage
 
+There are two ways to run this project: the original Jupyter notebook, or the
+standalone script.
+
+### Old way: Jupyter notebook
+
 Open `Code.ipynb` in Jupyter and run the cells.
 
 - The image cells read a sample photo (e.g. `happy.jpg`), detect the face, and
@@ -38,7 +43,7 @@ Open `Code.ipynb` in Jupyter and run the cells.
 - The webcam cell opens your camera and labels emotions in real time. Press `q`
   to quit.
 
-### Running the webcam demo as a script
+### New way: run the script
 
 The webcam demo also lives in `app.py`, so you can run it without opening the
 notebook:
@@ -50,7 +55,13 @@ python app.py
 It opens your camera, draws a box around each face, and labels the dominant
 emotion. Press `q` to quit.
 
-![Webcam demo](docs/demo.png)
+### Comparison
+
+| | Old way: Jupyter notebook | New way: run the script |
+| --- | --- | --- |
+| Command | Open `Code.ipynb` and run cells | `python app.py` |
+| Covers | Static images and webcam | Webcam demo |
+| Best for | Experimenting cell by cell | Quick live demo |
 
 ## What I've tried so far
 
