@@ -2,7 +2,8 @@
 
 ## What is Haar?
 
-- A face recognition algorithm.
+- A Haar cascade is a face **detection** method: it finds *where* faces are in an image.
+- DeepFace is what analyzes the emotion on each detected face.
 
 ## Enhancement opportunities / references
 

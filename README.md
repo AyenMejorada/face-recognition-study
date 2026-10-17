@@ -87,6 +87,10 @@ Run `python app.py --help` to see them all.
 - A **live webcam demo** that boxes and labels faces in real time
 - **Frame skipping** (analyzing every 5th frame) to keep the webcam feed
   smooth, since running the emotion model on every frame is slow
+- **Label smoothing:** averaging the last few emotion readings per face so the
+  label stops flickering
+- **Simple face tracking:** matching each detected face to the nearest previous
+  one by center distance, so each face keeps its own history
 
 ## Sample Images
 

@@ -17,7 +17,10 @@ import time
 from collections import deque
 
 import cv2
-from deepface import DeepFace
+
+# Note: DeepFace is imported lazily (inside analyze_emotion) rather than here.
+# Importing it pulls in TensorFlow, which takes several seconds. Keeping it out
+# of the top level means "python app.py --help" stays instant.
 
 # Run DeepFace only on every Nth frame instead of every frame. Emotion analysis
 # is slow, so analyzing every frame makes the video feel laggy. Between analyses
@@ -82,6 +85,10 @@ def analyze_emotion(face_crop):
     loop from crashing on a bad frame. We return the full score dict (e.g.
     {"happy": 87.0, "sad": 2.1, ...}) so the caller can smooth the scores.
     """
+    # Imported here (not at the top) so loading TensorFlow is deferred until we
+    # actually analyze a frame. This keeps "python app.py --help" instant.
+    from deepface import DeepFace
+
     result = DeepFace.analyze(
         face_crop,
         actions=["emotion"],
@@ -280,12 +287,23 @@ def main():
             # own score history as it moves.
             assigned_ids, next_id = match_faces(faces, tracks, next_id, args.smooth)
 
+            # A newly tracked face starts with an empty history, so it would
+            # show no label until the next Nth frame. Analyze right away if any
+            # detected face has no readings yet. This covers the case where one
+            # face leaves and another enters in the same frame (the face count
+            # is unchanged, so the count check below wouldn't catch it).
+            has_new_face = any(
+                not tracks[track_id]["history"] for track_id in assigned_ids
+            )
+
             # Decide whether to run the expensive analysis this frame. Normally
             # we only run it every Nth frame, but if the number of faces changed
             # (someone entered or left) we analyze right away so labels don't
             # stick to the wrong face.
             face_count_changed = len(faces) != prev_face_count
-            should_analyze = (frame_count % args.every == 0) or face_count_changed
+            should_analyze = (
+                frame_count % args.every == 0 or face_count_changed or has_new_face
+            )
 
             if should_analyze:
                 for box, track_id in zip(faces, assigned_ids):
