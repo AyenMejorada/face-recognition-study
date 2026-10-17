@@ -20,12 +20,13 @@ images and a live webcam feed.
 - Python 3.x
 - [opencv-python](https://pypi.org/project/opencv-python/)
 - [deepface](https://pypi.org/project/deepface/)
+- [tf_keras](https://pypi.org/project/tf-keras/)
 - matplotlib
 
 Install the dependencies:
 
 ```bash
-pip install opencv-python deepface matplotlib
+pip install -r requirements.txt
 ```
 
 ## Usage
@@ -36,6 +37,28 @@ Open `Code.ipynb` in Jupyter and run the cells.
   overlay the dominant emotion.
 - The webcam cell opens your camera and labels emotions in real time. Press `q`
   to quit.
+
+### Running the webcam demo as a script
+
+The webcam demo also lives in `app.py`, so you can run it without opening the
+notebook:
+
+```bash
+python app.py
+```
+
+It opens your camera, draws a box around each face, and labels the dominant
+emotion. Press `q` to quit.
+
+![Webcam demo](docs/demo.png)
+
+## What I've tried so far
+
+- **Haar cascade face detection** with OpenCV to find faces in each frame
+- **DeepFace's pre-trained emotion model** to label the dominant emotion
+- A **live webcam demo** that boxes and labels faces in real time
+- **Frame skipping** (analyzing every 5th frame) to keep the webcam feed
+  smooth, since running the emotion model on every frame is slow
 
 ## Sample Images
 
