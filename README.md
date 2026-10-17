@@ -53,7 +53,24 @@ python app.py
 ```
 
 It opens your camera, draws a box around each face, and labels the dominant
-emotion. Press `q` to quit.
+emotion. Labels are smoothed over the last few frames and show a confidence
+percentage (e.g. `happy 87%`).
+
+While the window is focused, press `s` to save the current frame to
+`screenshots/` and `q` to quit.
+
+You can also tweak a few options:
+
+```bash
+python app.py --camera 1 --every 3
+```
+
+- `--camera` (default `0`): preferred camera index; falls back to the other
+  index if it fails to open.
+- `--every` (default `5`): analyze every Nth frame.
+- `--smooth` (default `5`): how many recent readings to average per face.
+
+Run `python app.py --help` to see them all.
 
 ### Comparison
 
@@ -89,3 +106,7 @@ As I keep learning, I plan to:
 - Haar cascade face detection (OpenCV)
 - [DeepFace](https://github.com/serengil/deepface)
 - [FER2013 dataset](https://www.kaggle.com/datasets/msambare/fer2013)
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.

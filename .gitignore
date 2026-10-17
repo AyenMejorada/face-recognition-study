@@ -16,6 +16,9 @@ anaconda_projects/
 Thumbs.db
 .DS_Store
 
+# Saved webcam screenshots (test shots)
+screenshots/
+
 # Model weights / large downloads (DeepFace caches these in ~/.deepface)
 *.h5
 *.pb
